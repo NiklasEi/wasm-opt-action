@@ -1,0 +1,9 @@
+[package]
+name = "wasm-opt-action"
+description = "Slim wrapper around wasm-opt"
+version = "0.1.0"
+authors = ["Niklas Eicker <git@nikl.me>"]
+edition = "2021"
+publish = false
+
+[dependencies]

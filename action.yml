@@ -1,0 +1,21 @@
+name: 'wasm-opt'
+author: "Niklas Eicker (@NiklasEi)"
+description: "Use WebAssembly/binaryen's wasm-opt in your workflows"
+inputs:
+  file:
+    description: 'The wasm file to optimize'
+    required: true
+  output:
+    description: 'The output wasm file'
+    required: true
+  options:
+    description: 'Additional options to pass to wasm-opt'
+    required: false
+    default: "-Os"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}
+    - ${{ inputs.output }}
+    - ${{ inputs.options }}

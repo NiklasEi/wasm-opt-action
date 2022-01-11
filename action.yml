@@ -16,6 +16,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.command }}
+    - ${{ inputs.file }}
     - ${{ inputs.output }}
     - ${{ inputs.options }}

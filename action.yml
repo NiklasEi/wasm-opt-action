@@ -1,4 +1,4 @@
-name: 'wasm-opt'
+name: 'wasm-opt action'
 author: "Niklas Eicker (@NiklasEi)"
 description: "Use WebAssembly/binaryen's wasm-opt in your workflows"
 inputs:

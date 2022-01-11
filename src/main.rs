@@ -9,11 +9,17 @@ fn main() {
     println!("{:?}", args);
 
     args.remove(0);
-    let input = format!("/github/workspace/{}", args.remove(0).trim_start_matches("/"));
-    let output = format!("/github/workspace/{}", args.remove(0).trim_start_matches("/"));
-    let options = args.first().unwrap_or(&"-Os".to_owned());
+    let input = format!(
+        "/github/workspace/{}",
+        args.remove(0).trim_start_matches("/")
+    );
+    let output = format!(
+        "/github/workspace/{}",
+        args.remove(0).trim_start_matches("/")
+    );
+    let options = args.first().unwrap_or(&"-Os".to_owned()).to_owned();
     Command::new("wasm-opt")
-            .args([input, "-o", output, options])
-            .output()
-            .expect("failed to execute command");
+        .args([input, "-o".to_owned(), output, options])
+        .output()
+        .expect("failed to execute command");
 }

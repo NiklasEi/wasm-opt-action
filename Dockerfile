@@ -16,11 +16,14 @@ RUN cargo build --release
 
 FROM debian:buster-slim
 
-RUN mkdir binaryen
 RUN apt-get update
 RUN apt-get install -y wget
+
+RUN mkdir binaryen
 RUN wget -qO- https://github.com/WebAssembly/binaryen/releases/download/version_104/binaryen-version_104-x86_64-linux.tar.gz | tar xvz -C ./binaryen binaryen-version_104 --strip=1
 ENV PATH $PATH:/binaryen/bin
+
 COPY --from=build /wasm-opt-action/target/release/wasm-opt-action .
+ENV PATH $PATH:/
 
 ENTRYPOINT ["./wasm-opt-action"]

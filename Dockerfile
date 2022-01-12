@@ -27,4 +27,4 @@ COPY --from=build /wasm-opt-action/target/release/wasm-opt-action .
 ENV PATH $PATH:/
 RUN chmod +x /wasm-opt-action
 
-ENTRYPOINT ["./wasm-opt-action"]
+ENTRYPOINT ["wasm-opt-action"]

@@ -9,8 +9,8 @@ In one of your GitHub workflow steps:
       - name: Optimize WASM
         uses: NiklasEi/wasm-opt@v1
         with:
-          file: build/web/target/wasm_bg.wasm
-          output: build/web/target/wasm_bg.wasm
+          file: some/path/to/file.wasm
+          output: some/path/to/file.wasm
 ```
 
 The input parameters `file` and `output` are required. There is another optional parameter `options` with a default value of `-Os`. The input parameters are passed to `wasm-opt` like so: `<input> -o <output> <options>`. 

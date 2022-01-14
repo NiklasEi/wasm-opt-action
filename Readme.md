@@ -1,12 +1,12 @@
 # wasm-opt GitHub action
 
-This docker action allows usage of [binaryen's](https://github.com/WebAssembly/binaryen) wasm-opt to optimise your WASM files. Binaryen is available under its [Apache 2.0 License](https://github.com/WebAssembly/binaryen/blob/main/LICENSE).
+This docker action allows usage of [binaryen's](https://github.com/WebAssembly/binaryen) wasm-opt to optimise Wasm files inside your GitHub workflows. Binaryen is available under its [Apache 2.0 License](https://github.com/WebAssembly/binaryen/blob/main/LICENSE).
 
 ## Usage
 
 In one of your GitHub workflow steps:
 ```yaml
-      - name: Optimize WASM
+      - name: Optimize Wasm
         uses: NiklasEi/wasm-opt@v1
         with:
           file: some/path/to/file.wasm

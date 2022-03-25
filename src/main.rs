@@ -4,15 +4,16 @@ use std::process::Command;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
-    if args.len() < 3 {
-        panic!("Missing input");
+    if args.len() < 2 {
+        panic!("You need to at least define a file to optimize");
     }
     args.remove(0);
     println!("Got arguments: {:?}", args);
+    args.reverse();
 
     let glob_input = format!(
         "/github/workspace/{}",
-        args.remove(0).trim_start_matches("/")
+        args.pop().unwrap().trim_start_matches("/")
     );
     let input = glob(&glob_input)
         .expect("Failed to read glob pattern")
@@ -22,11 +23,15 @@ fn main() {
         .to_str()
         .expect("Path should be string")
         .to_owned();
-    println!("Optimizing {input}");
-    let output = format!(
-        "/github/workspace/{}",
-        args.remove(0).trim_start_matches("/")
-    );
+    println!("Optimizing '{input}'");
+
+    let output = if let Some(output) = args.pop() {
+        format!("/github/workspace/{}", output.trim_start_matches("/"))
+    } else {
+        input.clone()
+    };
+    println!("Writing optimized wasm file to '{output}'");
+
     let options = args.first().unwrap_or(&"-Os".to_owned()).to_owned();
     Command::new("wasm-opt")
         .args([input, "-o".to_owned(), output, options])

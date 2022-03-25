@@ -1,4 +1,4 @@
-FROM rust:1.57 as build
+FROM rust:1.59 as build
 
 RUN USER=root cargo new --bin wasm-opt-action
 WORKDIR /wasm-opt-action

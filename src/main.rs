@@ -1,3 +1,4 @@
+use glob::glob;
 use std::env;
 use std::process::Command;
 
@@ -6,13 +7,22 @@ fn main() {
     if args.len() < 3 {
         panic!("Missing input");
     }
-    println!("{:?}", args);
-
     args.remove(0);
-    let input = format!(
+    println!("Got arguments: {:?}", args);
+
+    let glob_input = format!(
         "/github/workspace/{}",
         args.remove(0).trim_start_matches("/")
     );
+    let input = glob(&glob_input)
+        .expect("Failed to read glob pattern")
+        .next()
+        .expect("No path found fr Glob")
+        .expect("Failed to read path")
+        .to_str()
+        .expect("Path should be string")
+        .to_owned();
+    println!("Optimizing {input}");
     let output = format!(
         "/github/workspace/{}",
         args.remove(0).trim_start_matches("/")

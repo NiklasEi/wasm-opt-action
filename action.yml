@@ -7,11 +7,10 @@ inputs:
     required: true
   output:
     description: 'The output wasm file'
-    required: true
+    required: false
   options:
     description: 'Additional options to pass to wasm-opt'
     required: false
-    default: "-Os"
 runs:
   using: 'docker'
   image: 'Dockerfile'

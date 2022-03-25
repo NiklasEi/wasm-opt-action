@@ -18,6 +18,7 @@ FROM debian:buster-slim
 
 RUN apt-get update
 RUN apt-get install -y wget
+RUN apt-get install libc6
 
 RUN mkdir binaryen
 RUN wget -qO- https://github.com/WebAssembly/binaryen/releases/download/version_105/binaryen-version_105-x86_64-linux.tar.gz | tar xvz -C ./binaryen binaryen-version_105 --strip=1

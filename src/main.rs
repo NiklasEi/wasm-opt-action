@@ -15,10 +15,11 @@ fn main() {
         "/github/workspace/{}",
         args.pop().unwrap().trim_start_matches("/")
     );
+    println!("Searching for file matching '{glob_input}'");
     let input = glob(&glob_input)
         .expect("Failed to read glob pattern")
         .next()
-        .expect("No path found fr Glob")
+        .expect("No path found for Glob")
         .expect("Failed to read path")
         .to_str()
         .expect("Path should be string")

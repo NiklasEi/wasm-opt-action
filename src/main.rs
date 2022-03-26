@@ -3,7 +3,7 @@ use std::env;
 use std::process::Command;
 
 fn main() {
-    let mut args: Vec<String> = env::args().collect();
+    let mut args: Vec<String> = env::args().filter(|arg| arg.len() > 0).collect();
     if args.len() < 2 {
         panic!("You need to at least define a file to optimize");
     }

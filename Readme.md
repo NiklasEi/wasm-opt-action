@@ -9,7 +9,7 @@ This docker action allows usage of [binaryen's](https://github.com/WebAssembly/b
 In one of your GitHub workflow steps:
 ```yaml
       - name: Optimize Wasm
-        uses: NiklasEi/wasm-opt@v2
+        uses: NiklasEi/wasm-opt-action@v2
         with:
           file: some/path/to/file.wasm
           output: some/path/to/file.wasm
@@ -20,7 +20,7 @@ The input parameter `file` is required. Unix shell like patterns are supported, 
 For example, if your wasm files get a hash attached to them, you can optimize like this:
 ```yaml
       - name: Optimize Wasm
-        uses: NiklasEi/wasm-opt@v2
+        uses: NiklasEi/wasm-opt-action@v2
         with:
           file: dist/*.wasm
 ```

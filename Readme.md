@@ -17,13 +17,14 @@ In one of your GitHub workflow steps:
 
 The parameter `file` is required and supports Unix shell like patterns. Only the first match is optimized. The parameter `output` is optional and defaults to the original file path. This is very useful if you pass a glob as `file`.
 
-For example, if your wasm files get a hash attached to them and build time, you can optimize like this:
+For example, if your wasm files get a hash attached to them at build time, you can optimize like this:
 ```yaml
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@v2
         with:
           file: dist/*.wasm
 ```
+This will replace your wasm file with the optimized one.
 
 There is another optional parameter `options` with a default value of `-Os`. 
 

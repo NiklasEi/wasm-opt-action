@@ -24,6 +24,7 @@ RUN wget -qO- https://github.com/WebAssembly/binaryen/releases/download/version_
 ENV PATH $PATH:/binaryen/bin
 
 COPY --from=build /wasm-opt-action/target/release/wasm-opt-action .
+COPY LICENSE-BINARYEN .
 ENV PATH $PATH:/
 RUN chmod +x /wasm-opt-action
 

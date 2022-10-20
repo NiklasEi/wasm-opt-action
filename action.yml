@@ -16,7 +16,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'niklasei/wasm-opt-action:v2.1.0'
   args:
     - ${{ inputs.file }}
     - ${{ inputs.output }}

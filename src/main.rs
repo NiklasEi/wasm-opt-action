@@ -20,27 +20,32 @@ fn main() {
         args.pop().unwrap().unwrap().trim_start_matches("/")
     );
     println!("Searching for file matching '{glob_input}'");
-    let input = glob(&glob_input)
-        .expect("Failed to read glob pattern")
-        .next()
-        .expect("No path found for Glob")
-        .expect("Failed to read path")
-        .to_str()
-        .expect("Path should be string")
-        .to_owned();
-    println!("Optimizing '{input}'");
+    let inputs = glob(&glob_input).expect("Failed to read glob pattern");
+    let optimize_all = args.pop().unwrap().unwrap_or("false".to_owned());
 
-    let output = if let Some(output) = args.pop().unwrap() {
-        format!("/github/workspace/{}", output.trim_start_matches("/"))
-    } else {
-        input.clone()
-    };
-    println!("Writing optimized wasm file to '{output}'");
+    for path in inputs {
+        let input = path
+            .expect("Failed to read path")
+            .to_str()
+            .expect("Path should be string")
+            .to_owned();
+        println!("Optimizing '{input}'");
 
-    let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
-    println!("Executing 'wasm-opt {input} -o {output} {options}'");
-    Command::new("wasm-opt")
-        .args([input, "-o".to_owned(), output, options])
-        .output()
-        .expect("failed to execute command");
+        let output = if let Some(output) = args.pop().unwrap() {
+            format!("/github/workspace/{}", output.trim_start_matches("/"))
+        } else {
+            input.clone()
+        };
+        println!("Writing optimized wasm file to '{output}'");
+
+        let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
+        println!("Executing 'wasm-opt {input} -o {output} {options}'");
+        Command::new("wasm-opt")
+            .args([input, "-o".to_owned(), output, options])
+            .output()
+            .expect("failed to execute command");
+        if optimize_all != "true" {
+            break;
+        }
+    }
 }

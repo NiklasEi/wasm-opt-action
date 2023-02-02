@@ -11,13 +11,17 @@ inputs:
   output:
     description: 'The output wasm file'
     required: false
+  optimize_all:
+    description: 'Set to "true" if you would like to optimize all matching files'
+    required: false
   options:
     description: 'Additional options to pass to wasm-opt'
     required: false
 runs:
   using: 'docker'
-  image: 'docker://niklasei/wasm-opt-action:v2.1.0'
+  image: 'docker://niklasei/wasm-opt-action:v2.2.0'
   args:
     - ${{ inputs.file }}
     - ${{ inputs.output }}
+    - ${{ inputs.optimize_all }}
     - ${{ inputs.options }}

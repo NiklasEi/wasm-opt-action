@@ -2,7 +2,7 @@
 
 This docker action allows usage of [binaryen's](https://github.com/WebAssembly/binaryen) wasm-opt to optimise Wasm files inside your GitHub workflows. Binaryen is available under its [Apache 2.0 License](LICENSE-BINARYEN).
 
-*Currently, this action uses Binaryen version 105*
+*Currently, this action uses Binaryen version 111*
 
 ## Usage
 
@@ -26,7 +26,7 @@ For example, if your wasm files get a hash attached to them at build time, you c
 ```
 This will replace your wasm file with the optimized one.
 
-There is another optional parameter `options` with a default value of `-Os`. 
+There is another optional parameter `options` with a default value of `-Os` and a flag to tell the action to optimize multiple files `optimize_all`. The flag is set to `"false"` by default.
 
 The input parameters are passed to `wasm-opt` like so: `<input> -o <output> <options>`.
 

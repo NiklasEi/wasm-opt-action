@@ -1,5 +1,6 @@
 use glob::glob;
-use std::env;
+use std::{env, io};
+use std::io::Write;
 use std::process::Command;
 
 fn main() {
@@ -40,10 +41,12 @@ fn main() {
 
         let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
         println!("Executing 'wasm-opt {input} -o {output} {options}'");
-        Command::new("wasm-opt")
+        let output = Command::new("wasm-opt")
             .args([input, "-o".to_owned(), output, options])
             .output()
             .expect("failed to execute command");
+        io::stdout().write_all(&output.stdout).expect("failed to write to stdout");
+        io::stderr().write_all(&output.stderr).expect("failed to write to stderr");
         if optimize_all != "true" {
             break;
         }

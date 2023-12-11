@@ -22,7 +22,9 @@ fn main() {
     );
     println!("Searching for file matching '{glob_input}'");
     let inputs = glob(&glob_input).expect("Failed to read glob pattern");
-    let optimize_all = args.pop().unwrap().unwrap_or("false".to_owned());
+    let output = args.pop().unwrap();
+    let optimize_all = args.pop().unwrap().unwrap_or("false".to_owned()) == "true";
+    let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
 
     for path in inputs {
         let input = path
@@ -32,14 +34,12 @@ fn main() {
             .to_owned();
         println!("Optimizing '{input}'");
 
-        let output = if let Some(output) = args.pop().unwrap() {
+        let output = if let Some(output) = output.clone() {
             format!("/github/workspace/{}", output.trim_start_matches('/'))
         } else {
             input.clone()
         };
         println!("Writing optimized wasm file to '{output}'");
-
-        let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
         println!("Executing 'wasm-opt {input} -o {output} {options}'");
         let output = Command::new("wasm-opt")
             .args([input, "-o".to_owned(), output])
@@ -52,7 +52,7 @@ fn main() {
         io::stderr()
             .write_all(&output.stderr)
             .expect("failed to write to stderr");
-        if optimize_all != "true" {
+        if !optimize_all {
             break;
         }
     }

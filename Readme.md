@@ -15,18 +15,21 @@ In one of your GitHub workflow steps:
           output: some/path/to/file.wasm
 ```
 
-The parameter `file` is required and supports Unix shell like patterns. Only the first match is optimized. The parameter `output` is optional and defaults to the original file path. This is very useful if you pass a glob as `file`.
+The parameter `file` is required and supports Unix shell like patterns. By default, only the first match is optimized. If you would like to optimize all files matching the pattern, set `optimize_all` to true.
 
-For example, if your wasm files get a hash attached to them at build time, you can optimize like this:
+The parameter `output` is optional and defaults to the original file path. This is very useful if you pass a glob as `file`.
+
+For example, if your wasm files get a hash attached to them at build time, you can optimize all of them like this:
 ```yaml
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@v2
         with:
           file: dist/*.wasm
+          optimize_all: true
 ```
-This will replace your wasm file with the optimized one.
+This will replace your wasm files with the optimized ones.
 
-There is another optional parameter `options` with a default value of `-Os` and a flag to tell the action to optimize multiple files `optimize_all`. The flag is set to `"false"` by default.
+There is another optional parameter `options` with a default value of `-Os`.
 
 The input parameters are passed to `wasm-opt` like so: `<input> -o <output> <options>`.
 

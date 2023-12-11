@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  lint:
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run clippy
+        run: cargo clippy --workspace --all-targets --all-features
+      - name: Check format
+        run: cargo fmt --all -- --check
+  basic:
+    steps:
+      - name: Optimize Wasm
+        uses: NiklasEi/wasm-opt-action@main
+        with:
+          file: hello_wasm_basic.wasm
+          output: hello_wasm_basic_optimized.wasm
+  all-options:
+    steps:
+      - name: Optimize Wasm
+        uses: NiklasEi/wasm-opt-action@main
+        with:
+          file: "*_hello_wasm.wasm"
+          optimize_all: true
+          options: "-Oz"
+  output-after-options:
+    steps:
+      - name: Optimize Wasm
+        uses: NiklasEi/wasm-opt-action@main
+        with:
+          file: "hello_wasm_basic.wasm"
+          options: "-Oz"
+          output: "hello_wasm_basic_optimized_z.wasm"

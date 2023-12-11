@@ -6,6 +6,7 @@ on:
 
 jobs:
   lint:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Run clippy
@@ -13,6 +14,7 @@ jobs:
       - name: Check format
         run: cargo fmt --all -- --check
   basic:
+    runs-on: ubuntu-latest
     steps:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
@@ -20,6 +22,7 @@ jobs:
           file: hello_wasm_basic.wasm
           output: hello_wasm_basic_optimized.wasm
   all-options:
+    runs-on: ubuntu-latest
     steps:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
@@ -28,6 +31,7 @@ jobs:
           optimize_all: true
           options: "-Oz"
   output-after-options:
+    runs-on: ubuntu-latest
     steps:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main

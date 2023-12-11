@@ -14,7 +14,6 @@ fn main() -> Result<(), io::Error> {
     }
     args.remove(0);
     println!("Got arguments: {:?}", args);
-    println!("testing");
     args.reverse();
 
     let glob_input = format!(

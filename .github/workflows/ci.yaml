@@ -17,6 +17,7 @@ jobs:
   basic:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:
@@ -25,6 +26,7 @@ jobs:
   all-options:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:
@@ -34,6 +36,7 @@ jobs:
   output-after-options:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:

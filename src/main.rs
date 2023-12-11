@@ -3,7 +3,7 @@ use std::io::Write;
 use std::process::Command;
 use std::{env, io};
 
-fn main() {
+fn main() -> Result<(), io::Error> {
     // Github passes empty strings for not defined optional parameters.
     // We have multiple optional params, so we need to keep their order.
     let mut args: Vec<Option<String>> = env::args()
@@ -21,12 +21,16 @@ fn main() {
         args.pop().unwrap().unwrap().trim_start_matches('/')
     );
     println!("Searching for file matching '{glob_input}'");
-    let inputs = glob(&glob_input).expect("Failed to read glob pattern");
+    let file_paths = glob(&glob_input).expect("Failed to read glob pattern");
+    if file_paths.count() < 1 {
+        println!("No matching files found!");
+    }
+
     let output = args.pop().unwrap();
     let optimize_all = args.pop().unwrap().unwrap_or("false".to_owned()) == "true";
     let options = args.pop().unwrap().unwrap_or("-Os".to_owned());
 
-    for path in inputs {
+    for path in file_paths {
         let input = path
             .expect("Failed to read path")
             .to_str()
@@ -56,4 +60,6 @@ fn main() {
             break;
         }
     }
+
+    Ok(())
 }

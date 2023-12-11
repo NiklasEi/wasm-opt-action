@@ -20,7 +20,7 @@ jobs:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:
-          file: hello_wasm_basic.wasm
+          file: tests/hello_wasm_basic.wasm
           output: hello_wasm_basic_optimized.wasm
   all-options:
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:
-          file: "*_hello_wasm.wasm"
+          file: "tests/*_hello_wasm.wasm"
           optimize_all: true
           options: "-Oz"
   output-after-options:
@@ -37,6 +37,6 @@ jobs:
       - name: Optimize Wasm
         uses: NiklasEi/wasm-opt-action@main
         with:
-          file: "hello_wasm_basic.wasm"
+          file: "tests/hello_wasm_basic.wasm"
           options: "-Oz"
           output: "hello_wasm_basic_optimized_z.wasm"

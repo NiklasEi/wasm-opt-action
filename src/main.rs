@@ -22,10 +22,6 @@ fn main() -> Result<(), io::Error> {
     );
     println!("Searching for file matching '{glob_input}'");
     let file_paths = glob(&glob_input).expect("Failed to read glob pattern");
-    if file_paths.count() < 1 {
-        println!("No matching files found!");
-    }
-
     let output = args.pop().unwrap();
     let optimize_all = args.pop().unwrap().unwrap_or("false".to_owned()) == "true";
     let options = args.pop().unwrap().unwrap_or("-Os".to_owned());

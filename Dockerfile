@@ -20,7 +20,7 @@ RUN apt-get update
 RUN apt-get install -y wget
 
 RUN mkdir binaryen
-RUN wget -qO- https://github.com/WebAssembly/binaryen/releases/download/version_116/binaryen-version_116-x86_64-linux.tar.gz | tar xvz -C ./binaryen binaryen-version_116 --strip=1
+RUN wget -qO- https://github.com/WebAssembly/binaryen/releases/download/version_123/binaryen-version_123-x86_64-linux.tar.gz | tar xvz -C ./binaryen binaryen-version_123 --strip=1
 ENV PATH $PATH:/binaryen/bin
 
 COPY --from=build /wasm-opt-action/target/release/wasm-opt-action .
